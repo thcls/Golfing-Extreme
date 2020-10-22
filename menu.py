@@ -5,12 +5,74 @@ import math
 class Menu:
 
     def __init__(self):
-        super().__init__()
         self.x = 0
         self.y = 0
         self.firt = True
 
+    def animetion(self, screen):
+
+        clock = pygame.time.Clock()
+
+        index = 0
+        time = 0
+
+        space = []
+        fx = []
+
+        fx.append(pygame.image.load('fx_01.png'))
+        fx.append(pygame.image.load('fx_02.png'))
+        fx.append(pygame.image.load('fx_03.png'))
+        fx.append(pygame.image.load('fx_04.png'))
+
+        space.append(pygame.image.load('space1.png'))
+        space.append(pygame.image.load('space2.png'))
+        space.append(pygame.image.load('space3.png'))
+        space.append(pygame.image.load('space4.png'))
+        space.append(pygame.image.load('space5.png'))
+        space.append(pygame.image.load('space6.png'))
+
+        while True:
+
+            clock.tick(6)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return False
+
+            if index == 6:
+                index = 0
+                time += 1
+                if time == 3:
+                    index = 0
+
+                    for index in range (3):
+                        clock.tick(15)
+                        screen.blit(fx[index], (50, -150))
+                        pygame.display.update()
+                        screen.fill((0, 0, 0))
+
+                    screen.fill((255,255,255))
+                    pygame.display.update()
+                    return True
+
+            screen.blit(space[index-2], (0, 0))
+            screen.blit(space[-index], (120, 100))
+            screen.blit(space[index-2], (420, 200))
+            screen.blit(space[-index], (620, 300))
+            screen.blit(space[index-2], (700, 150))
+            screen.blit(space[-index], (520, 250))
+            screen.blit(space[index-2], (350, 0))
+            screen.blit(space[-index], (550, 20))
+            screen.blit(space[index-2], (200, 300))
+            screen.blit(space[-index], (0, 300))
+
+            pygame.display.update()
+            index += 1
+
+
     def initial_menu(self, screen):
+
+        running = self.animetion(screen)
 
         (x, y) = (0, 0)
         clock = pygame.time.Clock()
@@ -20,7 +82,7 @@ class Menu:
 
         screen.blit(startmenu, (0, 0))
 
-        while True:
+        while running:
             clock.tick(6)
 
             for event in pygame.event.get():
